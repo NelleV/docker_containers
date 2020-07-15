@@ -1,0 +1,18 @@
+Cause I keep forgetting how to do this…
+
+ docker run -ti --rm r-base
+
+will run in interactive mode the image called r-base
+
+In order to build an image::
+
+    docker build -t nellev/rbase .
+
+In order to push the image onto dockerhub
+
+    docker push nellev/rbase
+
+If you are running out of space:
+
+    docker container prune
+    docker image prune
