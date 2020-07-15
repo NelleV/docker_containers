@@ -6,6 +6,7 @@ TERM=xterm
 
 apt-get update
 apt-get install -y libxml2-dev curl gcc gfortran g++
+apt-get install -y texlive
 
 BUILDDEPS="curl \
     default-jdk \
@@ -67,6 +68,9 @@ CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdat
 	    --with-recommended-packages
 ## Build and install
 make
+touch doc/NEWS.pdf
+cp doc/NEWS.rds doc/NEWS.2.rds
+cp doc/NEWS.rds doc/NEWS.3.rds
 make install
 
 ## Add a library directory (for user-installed packages)
@@ -83,17 +87,9 @@ else MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE};
 fi
 echo MRAN=$MRAN >> /etc/environment
 echo "options(repos = c(CRAN='$MRAN'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
-## Use littler installation scripts
-Rscript -e "install.packages(c('littler', 'docopt'), repo = '$CRAN')"
-ln -s /usr/local/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r
-ln -s /usr/local/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r 
-ln -s /usr/local/lib/R/site-library/littler/bin/r /usr/local/bin/r 
 ## Clean up from R source install
 cd / \
 rm -rf /tmp/* \
 apt-get remove --purge -y $BUILDDEPS \
 apt-get autoremove -y \
 apt-get autoclean -y \
-rm -rf /var/lib/apt/lists/*
-
-
