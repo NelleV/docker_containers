@@ -2,11 +2,12 @@ R_VERSION=4.0.2
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 TERM=xterm
-  
+ CRAN=https://mirror.ibcp.fr/pub/CRAN/
 
 apt-get update
 apt-get install -y libxml2-dev curl gcc gfortran g++
-apt-get install -y texlive
+apt-get install -y texlive libreadline-dev libicu-dev
+apt-get install -y libssl-dev libcurl4-openssl-dev  libxml2-dev  openjdk-8-jdk
 
 BUILDDEPS="curl \
     default-jdk \
@@ -87,9 +88,7 @@ else MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE};
 fi
 echo MRAN=$MRAN >> /etc/environment
 echo "options(repos = c(CRAN='$MRAN'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
+
 ## Clean up from R source install
-cd / \
-rm -rf /tmp/* \
-apt-get remove --purge -y $BUILDDEPS \
-apt-get autoremove -y \
-apt-get autoclean -y \
+cd /
+rm -rf /tmp/*

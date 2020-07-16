@@ -1,3 +1,6 @@
+
+install.packages("processx")
+
 if(!require("devtools")){
     install.packages("devtools")
 }
@@ -32,4 +35,7 @@ if(!(require(BiocCheck))){
     BiocManager::install("BiocCheck")
 }
 
+if(!(require(SummarizedExperiment))){
+    BiocManager::install("SummarizedExperiment")
+}
 
